@@ -22,31 +22,35 @@ export default function Home({ navigation }) {
     const currentRank = 1
     const imagePlaceHolder = require('../../assets/placeholder_logo.png');
 
-    const apps = {
-        "Social media": {
-            "Facebook" : {
+    const  HomePageDailyData = {
+        "Social media": [
+            {
+                "Name": "Facebook",
                 "Image":imagePlaceHolder,
                 "Time": "1h 2m",
                 "Points": 62,
             },
-            "Instagram" : {
+            {
+                "Name": "Instagram",
                 "Image":imagePlaceHolder,
-                "Time": "1h",
-                "Points": 65,
-            }
-        },
-        "Gaming": {
-            "Tetris" : {
-                "Image":imagePlaceHolder,
-                "Time": "2h 2m",
-                "Points": 80,
+                "Time": "1h 2m",
+                "Points": 62,
             },
-            "Solitaire" : {
+        ],
+        "Gaming": [
+            {
+                "Name": "Tetris",
                 "Image":imagePlaceHolder,
-                "Time": "3h",
-                "Points": 95,
-            }
-        },
+                "Time": "1h 2m",
+                "Points": 62,
+            },
+            {
+                "Name": "Solitaire",
+                "Image":imagePlaceHolder,
+                "Time": "1h 2m",
+                "Points": 62,
+            },
+        ]
     }
 
     useEffect(() => {
@@ -81,7 +85,7 @@ export default function Home({ navigation }) {
 
     return (
         <View>
-            <View style={{ backgroundColor: '#393E46', paddingVertical: 35, paddingHorizontal:20, flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={{ backgroundColor: themeColors.darkblue, paddingVertical: 35, paddingHorizontal:20, flexDirection: "row", justifyContent: "space-between" }}>
                 <View stlye={{ alignItems: "flex-start" }}>
                     <Text style={{
                         fontFamily: 'Montserrat-Regular',
