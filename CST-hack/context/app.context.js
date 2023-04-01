@@ -17,7 +17,7 @@ function AppProvider(props) {
     white: '#EEEEEE'
   })
 
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState('ull');
 
   const [failedLogin, setFailedLogin] = useState(null);
   const [API_URL, SET_API_URL] = useState("http://192.168.0.111:8000");

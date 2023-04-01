@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { AppContext } from "../../context/app.context";
 
 export default function Footer({ navigate }) {
-  const localRoutes = ["Feed", "Search", "Requests", "Profile"];
+  const localRoutes = ["Leaderboard", "Home", "Progress"];
   const { themeColors, profile } = useContext(AppContext);
   const [focused, setFocused] = useState('Feed');
 
@@ -12,25 +12,21 @@ export default function Footer({ navigate }) {
       <View style={{
         padding: 7,
       }}>
-        {<Image source={image} style={{ width: 25, height: 25 }} />}
+        {<Image source={image} style={{ width: 30, height: 30 }} />}
       </View>);
   };
 
   const renderIcon = ({ routeName, isFocused }) => {
-    if (routeName == 'Feed') {
+    if (routeName == 'Leaderboard') {
+      return <FooterButton image={require('../../assets/leaderboard.png')} isFocused={isFocused} />;
+    }
+
+    if (routeName == 'Home') {
       return <FooterButton image={require('../../assets/home.png')} isFocused={isFocused} />;
     }
 
-    if (routeName == 'Search') {
-      return <FooterButton image={require('../../assets/home.png')} isFocused={isFocused} />;
-    }
-
-    if (routeName == 'Requests') {
-      return <FooterButton image={require('../../assets/home.png')} isFocused={isFocused} />;
-    }
-
-    if (routeName == 'Profile') {
-      return <FooterButton image={require('../../assets/home.png')} isFocused={isFocused} />;
+    if (routeName == 'Progress') {
+      return <FooterButton image={require('../../assets/progress.png')} isFocused={isFocused} />;
     }
   }
 
@@ -45,7 +41,7 @@ export default function Footer({ navigate }) {
         flexDirection: 'row',
         alignContent: 'center',
         justifyContent: 'space-around',
-        // backgroundColor: themeColors.black,
+        backgroundColor: themeColors.darkblue,
       }}>
       {localRoutes.map((route, index) => {
         const isFocused = route === focused;
@@ -56,12 +52,12 @@ export default function Footer({ navigate }) {
             accessibilityRole="button"
             accessibilityStates={isFocused ? ['selected'] : []}
             onPress={() => {
-              // navigate(route, { profile: profile });
+              navigate(route);
               setFocused(route);
             }}
             style={{
-              justifyContent: 'center',
               alignContent: 'center',
+              justifyContent: 'center',
             }}
           >
             {renderIcon({ routeName: route, isFocused })}
