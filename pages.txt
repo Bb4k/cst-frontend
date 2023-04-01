@@ -1,0 +1,37 @@
+--- Pagini user (mobile)
+
+1) Pagina login
+  - Username si parola
+2) Pagina Home
+  - Sa apara numele userului si compania
+  - Timpul total petrecut pe telefon in ziua curenta
+  - Punctele obtinute in ziua curenta (hashtag cu locul in clasamentul echipei din care faci parte)
+  - (Maybe) Progresul fata de ziua precedenta (ex: ieri la ora 14:00 aveam 100 de puncte, azi la ora 14:00 am 120 de puncte => +x puncte fata de ziua precedenta la aceeasi ora)
+  - Timpul total petrecut pe diferite categorii de aplicatii (social media, gaming, etc.)
+
+3) Pagina leaderboard pentru luna curenta si pentru lunile precedente
+	- Clasamentul lunar al companiei (maybe clasament pe echipa) - locul in clasament, numarul de puncte => se reseteaza in fiecare luna (la inceputul lunii - pe 1)
+	- Badge-uri pentru locurile 1,2,3 (Gold, Silver, Bronze)
+	- La finalul fiecarei luni cei de pe locurile 1,2,3 primesc cate un badge care va aparea pe profilul lor
+	- Cand apesi pe o persoana din clasament iti afiseaza numele ei (gen un mini profil) in care apar badge-urile pe care persoana respectiva le-a obtinut
+
+4) Pagina de progres (se actualizeaza la finalul fiecarei ore/zile/luni
+	- Cand apesi pe o zi iti arata cate puncte aveai la finalul zilei si cate ai facut/pierdut in ziua respectvia 
+	- Cand apesi pe o zi iti arata punctele facute/pierdute pe categorii (social media, gaming, etc.)
+
+5) Pagina ta de profil in care iti vezi badge-urile
+
+
+--- Pagini admin (mobile)
+
+1) Login admin
+2) Pagina de configurare
+	- Adaugi numele companiei
+	- Adaugi programul de lucru
+	- Adaugi aplicatiile permise (cele care nu vor fi luate in considerare la calcularea punctajului)
+	- (Maybe) adaugi aplicatiile pe care daca le folosesti primesti puncte in plus
+	- Adaugi angajatii => cand adaugi un angajat i se creaza cont (maybe se trimite pe mail)
+	- Clasamentul lunii curente si lunilor trecute
+3) Pagina de editare a profilului companiei
+	- Apare lista cu angajatii si poti sa stergi un angajat 
+
