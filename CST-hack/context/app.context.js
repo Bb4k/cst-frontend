@@ -10,7 +10,11 @@ function AppProvider(props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const [themeColors, setThemeColors] = useState({
-    // black: '#000000',
+    darkblue:'#393E46',
+    darkgreen: '#057176',
+    lightgreen: '#00ADB5',
+    gray: '#707070',
+    white: '#EEEEEE'
   })
 
   const [profile, setProfile] = useState(null);
