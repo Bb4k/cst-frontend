@@ -9,10 +9,8 @@ export default function Footer({ navigate }) {
 
   const FooterButton = ({ isFocused, image }) => {
     return (
-      <View style={{
-        padding: 7,
-      }}>
-        {<Image source={image} style={{ width: 30, height: 30 }} />}
+      <View>
+        {<Image source={image} style={{ width: 35, height: 35 }} />}
       </View>);
   };
 
@@ -37,7 +35,7 @@ export default function Footer({ navigate }) {
         bottom: 0,
         width: '100%',
         zIndex: 100,
-        height: 52,
+        height: 60,
         flexDirection: 'row',
         alignContent: 'center',
         justifyContent: 'space-around',
@@ -58,6 +56,7 @@ export default function Footer({ navigate }) {
             style={{
               alignContent: 'center',
               justifyContent: 'center',
+              marginBottom:'1%'
             }}
           >
             {renderIcon({ routeName: route, isFocused })}
