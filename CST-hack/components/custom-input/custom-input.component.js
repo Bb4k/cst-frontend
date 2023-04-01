@@ -8,21 +8,23 @@ export default function CustomInput({ title, value, onChangeText, password, edit
     const styles = StyleSheet.create({
         input: {
             paddingLeft: 15,
-            fontSize: 20,
-            fontFamily: 'Montserrat-Bold',
+            fontSize: 15,
+            fontFamily: 'Montserrat-Regular',
             paddingVertical: 10,
-            minHeight: 45,
-            maxHeight: 45,
+            minHeight: 40,
+            maxHeight: 40,
             borderRadius: 10,
             marginBottom: 8,
-            backgroundColor: themeColors.blue,
-            color: 'white',
-            flex: 1
+            backgroundColor: 'white',
+            color: themeColors.lightgreen,
+            flex: 1,
+            borderWidth: 1,
+            borderColor: themeColors.gray,
         },
         title: {
             fontSize: 15,
-            fontFamily: 'Montserrat-Bold',
-            color: 'white',
+            fontFamily: 'Montserrat-SemiBold',
+            color: themeColors.lightgreen,
             paddingBottom: 5,
         }
     })

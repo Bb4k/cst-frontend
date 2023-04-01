@@ -10,8 +10,11 @@ export default function CustomButton({ navigation, text, onPress }) {
         defaultButtonStyle: {
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: 'blue',
+            backgroundColor: themeColors.lightgreen,
             borderRadius: 10,
+            padding: 10,
+            marginHorizontal: 40,
+            marginTop: 30
         },
         buttonStyle: {
             paddingVertical: 5,
@@ -22,7 +25,7 @@ export default function CustomButton({ navigation, text, onPress }) {
             paddingHorizontal: 20,
         },
         buttonTextStyle: {
-            // fontFamily: 'Montserrat-Bold',
+            fontFamily: 'Montserrat-Regular',
             color: 'white',
             fontSize: 20,
         },

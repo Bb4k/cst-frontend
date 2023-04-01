@@ -4,10 +4,8 @@ import { AppContext } from "../context/app.context";
 import DashboardStackScreen from "./dashboard.navigation";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
-  RoleSelectScreen,
   LoginScreen,
-  Signup,
-
+  Home
 } from "../screens";
 
 export const navigationRef = React.createRef();
@@ -31,24 +29,8 @@ function RootNavigation() {
   const renderLoggedOutUser = () => (
     <Stack.Navigator>
       <Stack.Screen
-        name="RoleSelectScreen"
-        component={RoleSelectScreen}
-        options={{
-          headerShown: false
-        }}
-      />
-
-      <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{
-          headerShown: false
-        }}
-      />
-
-      <Stack.Screen
-        name="Signup"
-        component={Signup}
         options={{
           headerShown: false
         }}
