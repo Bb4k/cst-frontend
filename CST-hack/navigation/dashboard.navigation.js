@@ -1,7 +1,10 @@
 import React, { memo } from "react";
 import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
 import {
-
+    LoginScreen,
+    Home,
+    Progress,
+    Leaderboard
 } from "../screens";
 
 function DashboardStackScreenSimple({ navigation }) {
@@ -9,15 +12,11 @@ function DashboardStackScreenSimple({ navigation }) {
 
     return (
         <DashboardStack.Navigator
-            screenOptions={{
-                animation: 'fade',
-                cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-            }}
         >
-
+            <DashboardStack.Screen options={{ headerShown: false }} name="Leaderboard" component={Leaderboard} />
+            <DashboardStack.Screen options={{ headerShown: false }} name="Progress" component={Progress} />
+            <DashboardStack.Screen options={{ headerShown: false }} name="Home" component={Home} />
             <DashboardStack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
-            <DashboardStack.Screen options={{ headerShown: false }} name="Signup" component={Signup} />
-            <DashboardStack.Screen options={{ headerShown: false }} name="RoleSelectScreen" component={RoleSelectScreen} />
         </DashboardStack.Navigator>
     );
 }

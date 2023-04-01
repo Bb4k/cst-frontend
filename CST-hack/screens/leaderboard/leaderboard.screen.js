@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 
 import { AppContext } from '../../context/app.context';
 
-export default function Home({ navigation }) {
+export default function Leaderboard({ navigation }) {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const { themeColors, handleLogin, failedLogin } = useContext(AppContext);
@@ -20,6 +20,6 @@ export default function Home({ navigation }) {
     });
 
     return (
-        <Text>Home screen</Text>
+        <Text>Leaderboard page</Text>
     );
 }

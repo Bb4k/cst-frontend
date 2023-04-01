@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../context/app.context";
-// import { Footer, Header } from "../components";
+import { Footer, Header } from "../components";
 import DashboardStackScreen from "./dashboard.navigation";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
