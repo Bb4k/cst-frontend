@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableHighlight } from "react-native";
 
 import { AppContext } from '../../context/app.context';
+import { AppCategory } from '../../components';
 
 export default function Home({ navigation }) {
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
-    const { themeColors, handleLogin, failedLogin } = useContext(AppContext);
+    const { themeColors, setProfile } = useContext(AppContext);
 
     const date = new Date();
     const hour = date.getHours().toString().padStart(2, '0');
@@ -22,35 +21,77 @@ export default function Home({ navigation }) {
     const currentRank = 1
     const imagePlaceHolder = require('../../assets/placeholder_logo.png');
 
-    const  HomePageDailyData = {
-        "Social media": [
-            {
-                "Name": "Facebook",
-                "Image":imagePlaceHolder,
-                "Time": "1h 2m",
-                "Points": 62,
-            },
-            {
-                "Name": "Instagram",
-                "Image":imagePlaceHolder,
-                "Time": "1h 2m",
-                "Points": 62,
-            },
-        ],
-        "Gaming": [
-            {
-                "Name": "Tetris",
-                "Image":imagePlaceHolder,
-                "Time": "1h 2m",
-                "Points": 62,
-            },
-            {
-                "Name": "Solitaire",
-                "Image":imagePlaceHolder,
-                "Time": "1h 2m",
-                "Points": 62,
-            },
-        ]
+    const HomePageDailyData = {
+        date: 12,
+        score: 700,
+        usage: {
+            "Social-Media": [
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+            ],
+            "Games": [
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+            ],
+            "Productivity": [
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                },
+                {
+                    name: "Instagram",
+                    logo: "https://i.ibb.co/G5F82Gk/Instagram.png",
+                    time: '1h35m'
+                }
+            ]
+        }
     }
 
     useEffect(() => {
@@ -70,9 +111,6 @@ export default function Home({ navigation }) {
 
     const styles = StyleSheet.create({
         container: {
-            // backgroundColor: themeColors.black, TODO: set background color
-            // TODO: search "themeColors" using Ctrl+Shift+F and fix it in the whole project before continuing
-            // TODO: search "fontFamily" using Ctrl+Shift+F and fix it in the whole project before continuing
             width: '100%',
             height: 80,
             height: '100%',
@@ -84,8 +122,8 @@ export default function Home({ navigation }) {
     });
 
     return (
-        <View>
-            <View style={{ backgroundColor: themeColors.darkblue, paddingVertical: 35, paddingHorizontal:20, flexDirection: "row", justifyContent: "space-between" }}>
+        <View style={{ marginBottom: 52, backgroundColor: themeColors.white, flex: 1 }}>
+            <View style={{ backgroundColor: themeColors.darkblue, paddingVertical: 35, paddingHorizontal: 20, flexDirection: "row", justifyContent: "space-between" }}>
                 <View stlye={{ alignItems: "flex-start" }}>
                     <Text style={{
                         fontFamily: 'Montserrat-Regular',
@@ -116,15 +154,17 @@ export default function Home({ navigation }) {
                     }}>
                         {currentTime}
                     </Text>
-                    <Text style={{
-                        fontFamily: 'Montserrat-Bold',
-                        fontSize: 12,
-                        lineHeight: 12,
-                        color: themeColors.gray,
-                        marginTop: 0
-                    }}>
-                        LOGOUT
-                    </Text>
+                    <TouchableHighlight onPress={() => { setProfile(null) }}>
+                        <Text style={{
+                            fontFamily: 'Montserrat-Bold',
+                            fontSize: 12,
+                            lineHeight: 12,
+                            color: themeColors.gray,
+                            marginTop: 0
+                        }}>
+                            LOGOUT
+                        </Text>
+                    </TouchableHighlight>
                 </View>
             </View>
             <View style={{ backgroundColor: themeColors.white, paddingVertical: 20, paddingHorizontal: 20, flexDirection: "row", justifyContent: "space-between" }}>
@@ -176,8 +216,8 @@ export default function Home({ navigation }) {
                     </Text>
                 </View>
             </View>
-            <View>
-                <Text>In progres: De tras pe dreapta de la robert</Text>
+            <View style={{ paddingHorizontal: 20, flex: 1 }}>
+                <AppCategory list={HomePageDailyData.usage} />
             </View>
         </View>
     );

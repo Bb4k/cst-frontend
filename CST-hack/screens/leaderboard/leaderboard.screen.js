@@ -87,7 +87,7 @@ export default function Leaderboard({ navigation }) {
                 <View style={styles.delimiter} />
                 <Text style={[styles.cell, styles.header]}>Name</Text>
                 <View style={styles.delimiter} />
-                <Text style={[styles.cell, styles.header]}>Point</Text>
+                <Text style={[styles.cell, styles.header]}>Points</Text>
             </View>
         );
     };
@@ -104,7 +104,6 @@ export default function Leaderboard({ navigation }) {
         );
     };
     return (
-
         <View style={{ flex: 1, marginBottom: 70 }}>
             <View style={{ backgroundColor: themeColors.darkblue, paddingVertical: 35, paddingHorizontal: 20 }}>
                 <Text style={{
@@ -169,16 +168,13 @@ export default function Leaderboard({ navigation }) {
                             color: themeColors.grey,
                         }}>
                             Rank #{currentUserData.rank}
-                            <View>
-                                {console.log(currentUserData)}
-                            </View>
                         </Text>
                         <View style={{ flexDirection: 'row', marginRight: 20, marginTop: 10 }}>
                             {Object.keys(currentUserData.badges).map(key => (
                                 <Image
                                     key={key}
                                     source={currentUserData.badges[key]}
-                                    style={{ height: 50, maxWidth:35, marginRight: 10 }}
+                                    style={{ height: 50, maxWidth: 35, marginRight: 10 }}
                                 />
                             ))}
                         </View>

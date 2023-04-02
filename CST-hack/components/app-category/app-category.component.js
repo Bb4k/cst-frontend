@@ -25,7 +25,7 @@ export default function AppCategory({ navigation, list }) {
             data={iterList}
             keyExtractor={(item, index) => index}
             renderItem={({ item, index }) => (
-                <View style={{ flexDirection: 'column', marginBottom: 5, paddingVertical: index == 0 ? 10 : 0, }}>
+                <View style={{ flexDirection: 'column', marginBottom: 5, paddingTop: index == 0 ? 10 : 0 }}>
                     <Text style={styles.title}>{Object.keys(list)[index]}</Text>
                     <AppList list={item.items} />
                 </View>

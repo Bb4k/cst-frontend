@@ -9,7 +9,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 export default function Progress({ navigation }) {
     const { themeColors } = useContext(AppContext);
 
-    const [monthly, setMonthly] = useState([]);
     const [selected, setSelected] = useState('daily');
     const [selectedItem, setSelectedItem] = useState(0);
     const [maxScore, setMaxScore] = useState(1000);
@@ -191,7 +190,11 @@ export default function Progress({ navigation }) {
         }
     }
 
-    const [daily, setDaily] = useState([dailyTemplate1, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3, dailyTemplate1, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3]);
+    const res = [dailyTemplate1, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3, dailyTemplate1, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3, dailyTemplate2, dailyTemplate3];
+    const [data, setData] = useState(null);
+    const [daily, setDaily] = useState([]);
+    const [monthly, setMonthly] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const styles = StyleSheet.create({
         container: {
@@ -206,11 +209,25 @@ export default function Progress({ navigation }) {
         },
         title: {
             fontFamily: 'Montserrat-Regular',
-            fontSize: 35,
-            paddingLeft: 20,
+            fontSize: 30,
             color: themeColors.lightgreen
         }
     });
+
+    const fetchData = async () => {
+        setLoading(true);
+
+        //   const response = await fetch(`https://your-api.com/stats/${selectedOption}`);
+        const response = res;
+        // const statsData = await response.json();
+
+        setData(response);
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, [selected]);
 
     const renderElement = (elem, index) => (
         <TouchableOpacity
@@ -238,23 +255,58 @@ export default function Progress({ navigation }) {
     );
 
     return (
-        <View style={{ marginBottom: 55, backgroundColor: themeColors.white, flex: 1 }}>
-            <View style={styles.top}>
-                <Text style={styles.title}>Your progress</Text>
-                <FlatList
-                    data={selected == 'montly' ? monthly : daily}
-                    keyExtractor={(item, index) => index}
-                    renderItem={({ index, item }) => (
-                        renderElement(item, index)
-                    )}
-                    inverted={true}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                />
-            </View>
-            <View style={{ paddingHorizontal: 20, flex: 1 }}>
-                <AppCategory list={selected == 'daily' ? daily[selectedItem].usage : monthly[selectedItem].usage} />
-            </View>
-        </View>
+        <>
+            {
+                !loading &&
+                <View style={{ marginBottom: 55, backgroundColor: themeColors.white, flex: 1 }}>
+                    <View style={styles.top}>
+                        <View style={{ justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: 20, alignItems: 'center' }}>
+                            <Text style={styles.title}>Your progress</Text>
+                            <TouchableOpacity
+                                style={{
+                                    borderRadius: 100,
+                                    width: 90,
+                                    height: 30,
+                                    flexDirection: selected == 'daily' ? 'row' : 'row-reverse',
+                                    backgroundColor: selected == 'daily' ? themeColors.lightgreen : themeColors.darkgreen,
+                                    alignItems: 'center'
+                                }}
+                                onPress={() => {
+                                    setLoading(true);
+                                    setSelected(selected == 'daily' ? 'monthly' : 'daily')
+                                }}
+                            >
+                                <View style={{
+                                    height: 30,
+                                    width: 30,
+                                    borderRadius: 100,
+                                    backgroundColor: selected == 'daily' ? themeColors.darkgreen : themeColors.lightgreen,
+                                }} />
+                                <Text style={{
+                                    fontFamily: 'Montserrat-Bold',
+                                    fontSize: 13,
+                                    color: 'black',
+                                    paddingHorizontal: 7
+                                }}>{selected == 'daily' ? "Day" : "Month"}</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <FlatList
+                            data={data}
+                            keyExtractor={(item, index) => index}
+                            renderItem={({ index, item }) => (
+                                renderElement(item, index)
+                            )}
+                            inverted={true}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                    <View style={{ paddingHorizontal: 20, flex: 1 }}>
+                        <AppCategory list={data[selectedItem].usage} />
+                    </View>
+                </View>
+            }
+        </>
     );
 }
