@@ -39,7 +39,7 @@ export default function AppList({ navigation, list }) {
                             <Text style={[styles.logoName, styles.text]}>{item.name}</Text>
                         </View>
                         <Text style={[styles.time, styles.text]}>{item.time}</Text>
-                        <Text style={[styles.score, styles.text]}>+10</Text>
+                        <Text style={[styles.score, styles.text]}>{item.score}</Text>
                     </View>
                 )}
                 showsVerticalScrollIndicator={false}

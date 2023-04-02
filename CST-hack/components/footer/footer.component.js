@@ -9,7 +9,7 @@ export default function Footer({ navigate }) {
 
   const FooterButton = ({ isFocused, image }) => {
     return (
-      <View>
+      <View style={{ backgroundColor: isFocused ? 'rgba(0,0,0,0.25)' : 'rgba(0,0,0,0)', padding: 3}}>
         {<Image source={image} style={{ width: 35, height: 35 }} />}
       </View>);
   };

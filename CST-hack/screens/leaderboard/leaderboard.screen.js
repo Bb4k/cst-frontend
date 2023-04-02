@@ -4,30 +4,35 @@ import { StyleSheet, View, Text, FlatList, Modal, TouchableHighlight, Image } fr
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppContext } from '../../context/app.context';
+import { getLeaderboard, getBadges } from '../../utils/utils';
 
 export default function Leaderboard({ navigation }) {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [currentUserData, setCurrentUserData] = useState(null);
     const badgePlaceholder = require('../../assets/medal_placeholder.png')
-    const { themeColors, handleLogin, failedLogin } = useContext(AppContext);
+    const { themeColors, API_URL, profile } = useContext(AppContext);
 
     handleUserClick = (userId) => {
-        let userData = {
-            "name": "Mihai Ene",
-            "rank": 1,
-            "badges": {
-                "October 2023": require('../../assets/medal_placeholder.png'),
-                "September 2023": require('../../assets/medal_placeholder.png'),
-                "August 2023": require('../../assets/medal_placeholder.png'),
-            },
-        }
-        setCurrentUserData(userData);
+        console.log(userId);
+        getBadges(userId, API_URL)
+            .then((res) => { setCurrentUserData(res) }).catch((error) => { console.log(error) });
+
+        // let userData = {
+        //     "name": "Mihai Ene",
+        //     "rank": 1,
+        //     "badges": {
+        //         "October 2023": require('../../assets/medal_placeholder.png'),
+        //         "September 2023": require('../../assets/medal_placeholder.png'),
+        //         "August 2023": require('../../assets/medal_placeholder.png'),
+        //     },
+        // }
+        // setCurrentUserData(userData);
         setModalVisible(true);
     }
 
     const [modalVisible, setModalVisible] = useState(false);
-    const userCompany = "Cornerstone Technologies"
+    const [index, setIndex] = useState();
 
     const styles = StyleSheet.create({
         container: {
@@ -61,24 +66,11 @@ export default function Leaderboard({ navigation }) {
         },
     });
 
-    const data = [
-        { name: 'Joh', id: 1, point: 100 },
-        { name: 'Jane', id: 2, point: 90 },
-        { name: 'Bob', id: 3, point: 80 },
-        { name: 'Alice', id: 4, point: 70 },
-        { name: 'Dave', id: 5, point: 60 },
-        { name: 'John', id: 6, point: 50 },
-        { name: 'Jane', id: 7, point: 43 },
-        { name: 'Bob', id: 8, point: 42 },
-        { name: 'Alice', id: 9, point: 41 },
-        { name: 'Dave', id: 10, point: 40 },
-        { name: 'John', id: 11, point: 35 },
-        { name: 'Jane', id: 12, point: 30 },
-        { name: 'Bob', id: 13, point: 20 },
-        { name: 'Alice', id: 14, point: 10 },
-        { name: 'Dave', id: 15, point: 5 },
-        { name: 'Dave', id: 16, point: 5 },
-    ]
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        getLeaderboard(profile.companyId, API_URL).then((res) => { setData(res) }).catch((error) => { console.log(error) })
+    }, []);
 
     const TableHeader = () => {
         return (
@@ -97,9 +89,9 @@ export default function Leaderboard({ navigation }) {
             <View style={styles.row}>
                 <Text style={styles.cell}>{index + 1}</Text>
                 <View style={styles.delimiter} />
-                <Text style={styles.cell} onPress={(userId) => handleUserClick(item.id)}>{item.name}</Text>
+                <Text style={styles.cell} onPress={() => {handleUserClick(item.userId); setIndex(index+1); }}>{item.name}</Text>
                 <View style={styles.delimiter} />
-                <Text style={styles.cell}>{item.point}</Text>
+                <Text style={styles.cell}>{item.points}</Text>
             </View>
         );
     };
@@ -120,7 +112,7 @@ export default function Leaderboard({ navigation }) {
                     lineHeight: 20,
                     color: themeColors.white,
                 }}>
-                    {userCompany}
+                    {profile.company}
                 </Text>
             </View>
             <FlatList
@@ -167,7 +159,7 @@ export default function Leaderboard({ navigation }) {
                             lineHeight: 20,
                             color: themeColors.grey,
                         }}>
-                            Rank #{currentUserData.rank}
+                            Rank #{index}
                         </Text>
                         <View style={{ flexDirection: 'row', marginRight: 20, marginTop: 10 }}>
                             {Object.keys(currentUserData.badges).map(key => (

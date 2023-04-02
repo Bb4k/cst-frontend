@@ -20,14 +20,14 @@ function AppProvider(props) {
   const [profile, setProfile] = useState(null);
 
   const [failedLogin, setFailedLogin] = useState(null);
-  const [API_URL, SET_API_URL] = useState("http://192.168.0.111:8000");
+  const [API_URL, SET_API_URL] = useState("http://10.0.0.6:8000");
 
   const [deviceW, setDeviceW] = useState(Dimensions.get('window').width);
   const [deviceH, setDeviceH] = useState(Dimensions.get('window').height);
 
   const saveProfile = async (profileToSave) => {
     try {
-      await AsyncStorage.setItem('profile', profileToSave);
+      await AsyncStorage.setItem('profile', JSON.stringify(profileToSave));
       setProfile(profileToSave);
     } catch (error) {
       console.error('Error saving profile:', error);
@@ -37,7 +37,7 @@ function AppProvider(props) {
   const loadProfile = async () => {
     try {
       const savedProfile = await AsyncStorage.getItem('profile');
-      setProfile(savedProfile);
+      setProfile(JSON.parse(savedProfile));
       setIsLoading(false);
 
     } catch (error) {
@@ -50,30 +50,21 @@ function AppProvider(props) {
   }, []);
 
   const handleLogin = async (formData) => {
+    const bodyFormData = new FormData();
+    bodyFormData.append("email", formData.email);
+    bodyFormData.append("password", formData.password);
+
     axios.post(
-      `${API_URL}/login`,
-      formData,
+      `${API_URL}/login-user/`,
+      JSON.stringify(formData),
       {
         headers: {
           "Content-Type": "application/json"
         }
       })
-      .then(async (response) => {
-        // get entire profile of user
-        axios.get(
-          `${API_URL}/user-profile/${response.data.id}/${response.data.id}`)
-          .then((profileRes) => {
-            setProfile(profileRes.data);
-            navigate("Home");
-          })
-          .catch((profileRes) => {
-            try {
-              show({ message: profileRes, type: "error" });
-            } catch (e) {
-              console.log("Response all data: ", profileRes);
-            }
-          });
-
+      .then((response) => {
+        saveProfile(response.data);
+        // navigate("Home");
       })
       .catch((response) => {
         try {

@@ -5,7 +5,7 @@ import { CustomButton } from '../../components';
 import { AppContext } from '../../context/app.context';
 
 export default function LoginScreen({ navigation }) {
-  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const { themeColors, profile, handleLogin, failedLogin, saveProfile, isLoading } = useContext(AppContext);
 
@@ -32,9 +32,9 @@ export default function LoginScreen({ navigation }) {
               marginBottom: 50
             }}>Login</Text>
             <CustomInput
-              title={'username'}
-              value={username}
-              onChangeText={setUsername}
+              title={'email'}
+              value={email}
+              onChangeText={setEmail}
             />
             <CustomInput
               title={'password'}
@@ -55,20 +55,11 @@ export default function LoginScreen({ navigation }) {
               text={"SUBMIT"}
               onPress={() => {
                 var bodyFormData = {
-                  username: username,
-                  email: '',
+                  email: email,
                   password: password,
-                  picture: ''
                 }
-                // Hardcode button for faster testing
-                // var bodyFormData = {
-                //   username: 'dragosbalmau',
-                //   email: '',
-                //   password: 'dragos',
-                //   picture: '',
-                // }
-                // handleLogin(bodyFormData);
-                saveProfile(username);
+                handleLogin(bodyFormData);
+                // saveProfile(username);
               }}
             />
           </View>
