@@ -1,5 +1,6 @@
 import React from "react";
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
+import axiosInstance from './axios'
 import Alert from '@mui/material/Alert';
 import Header from "../components/Header"
 import TextField from '@mui/material/TextField';
@@ -9,35 +10,29 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 
 export default function Login() {
-    const [accountCreated, setAccountCreated] = useState(true)
-    const [loginAlert,setLoginAlert] = React.useState(-1);
+    const [accountCreated, setAccountCreated] = useState(false)
+    const [loginAlert, setLoginAlert] = React.useState(-1);
 
     const [formData, updateFormData] = React.useState({
         email: '',
         password: '',
     });
 
-    const [isLoggedIn, setIsLoggedIn] = useState(true)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     useEffect(() => {
         let mounted = true
         if (mounted) {
-        //   axiosInstance.get('authorization/', {})
-        //                .then((res) => {
-        //                 setIsLoggedIn(res.data.is_logged_in)
-        //                 setIsStaff(res.data.is_staff)
-        //                 setIsProfesor(res.data.is_profesor)
-        //                })
-        //                .catch(function () {
-        //                 setIsLoggedIn(false)
-        //                 setIsStaff(false)
-        //                 setIsProfesor(false)
-        //                })  
-          if (isLoggedIn) {
-            window.location.href='/'
-          }
+            if (localStorage.getItem('userId')) {
+                setIsLoggedIn(true);
+                window.location.href = '/';
+            }
+            else {
+                setIsLoggedIn(false)
+            }
+
         }
-      }, [setIsLoggedIn])
+    }, [setIsLoggedIn])
 
     const handleChange = (e) => {
         updateFormData({
@@ -48,48 +43,64 @@ export default function Login() {
 
     const handleLogin = (e) => {
         e.preventDefault();
-		var canLogIn=true
-		for(var field in formData){
-			if(formData[field]===""){
-				setLoginAlert(2);
-				canLogIn = false;
-			}
-		}
-		if(canLogIn){
-				
-				
-		}
+        var canLogIn = true
+        for (var field in formData) {
+            if (formData[field] === "") {
+                setLoginAlert(2);
+                canLogIn = false;
+            }
+        }
+        if (true) {
+            axiosInstance
+            .post(`login-user/`, {
+                email: formData.email,
+                password: formData.password,
+            })
+            .then((res) => {
+                        localStorage.setItem('userId', res.data.userId);
+                        localStorage.setItem('companyId', res.data.companyId);
+                        window.location.href='/';
+            })
+            .catch((function () {
+                    alert('error')
+                    setLoginAlert(1)
+            }));
+        
+        }
     };
 
-    function MyAlerts(){
-        if (loginAlert===1){
-         return(
-             <Alert style={{marginTop:15}} severity="error">
-         User not found.
-           </Alert>
-         );}
-         else if (loginAlert===2){
-         return(
-             <Alert style={{marginTop:15}} severity="error">
-                 Please complete all fields.
-           </Alert>
-         );}
+    function MyAlerts() {
+        if (loginAlert === 1) {
+            return (
+                <Alert style={{ marginTop: 15 }} severity="error">
+                    User not found.
+                </Alert>
+            );
+        }
+        else if (loginAlert === 2) {
+            return (
+                <Alert style={{ marginTop: 15 }} severity="error">
+                    Please complete all fields.
+                </Alert>
+            );
+        }
         else {
-          return(
-            <React.Fragment></React.Fragment>
-          );}
-     }
+            return (
+                <React.Fragment></React.Fragment>
+            );
+        }
+    }
 
 
     return (
         <React.Fragment>
-            <Header/>
+            <Header />
             <Container component="main" maxWidth="xs">
                 <div>
                     <Typography component="h1" variant="h5" align="center" marginTop={10}>
-                    Login
+                        Login
                     </Typography>
-                    <form  noValidate>
+                    <form noValidate>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
@@ -118,20 +129,19 @@ export default function Login() {
                             </Grid>
                         </Grid>
                         <MyAlerts />
-                    {accountCreated ? (<></>):(
-                    <Button
+                        <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            
-                            style={{marginTop:40, background:"#00ADB5"}}
+
+                            style={{ marginTop: 40, background: "#00ADB5" }}
                             onClick={handleLogin}
                         >
                             login
-                     </Button>)}
-                     </form>
+                        </Button>
+                    </form>
                 </div>
-                </Container>
+            </Container>
         </React.Fragment>
     )
 }

@@ -31,7 +31,6 @@ export default function Index(){
     return (
         <>
         <Header/>
-        <h1>Index page</h1>
         </>
     )
 }
