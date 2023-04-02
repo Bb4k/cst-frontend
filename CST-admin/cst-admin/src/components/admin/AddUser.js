@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
+import axiosInstance from "../axios";
 
 export default function AddUser() {
 
@@ -13,8 +14,8 @@ export default function AddUser() {
     const [RegisterAlert, setRegisterAlert] = useState(-1);
 
     const initialFormData = Object.freeze({
-        first_name: '',
-        last_name: '',
+        firstName: '',
+        lastName: '',
         password:'',
         confirm_password: '',
     });
@@ -141,25 +142,22 @@ export default function AddUser() {
         if (canSubmit) {
             console.log("can submit")
             setUserCreated(true)
-            // axiosInstance
-            //         .post(`auth-service/account/register/`, {
-
-            //                 firstName: formData.firstName,
-            //                 lastName: formData.lastName,
-            //                 email: formData.email,
-            //                 password: formData.password,
-            //                 phoneNumber: formData.phoneNumber,
-            //                 address: formData.address
-
-            //         })
-            //         .then(() => {
-            //             setAccountCreated(true);
-            //             setRegisterAlert(10);
-            //         })
-            //         .catch((function (error) {
-            //             if(error.response.status === 500)
-            //                 setRegisterAlert(0)
-            //         }));
+            axiosInstance
+                    .post(`register-user/`, {
+                        first_name: formData.firstName,
+                        last_name: formData.lastName,
+                        email: formData.email,
+                        password: formData.password,
+                        company: localStorage.getItem('companyId'),
+                    })
+                    .then(() => {
+                        setUserCreated(true);
+                        setRegisterAlert(10);
+                    })
+                    .catch((function (error) {
+                        if(error.response.status === 500)
+                            setRegisterAlert(0)
+                    }));
         }
 
     }
@@ -179,7 +177,7 @@ export default function AddUser() {
                                 fullWidth
                                 id="firstName1"
                                 label="First name"
-                                name="first_name"
+                                name="firstName"
                                 autoComplete="firstName"
                                 onChange={handleChange}
                             />
@@ -191,7 +189,7 @@ export default function AddUser() {
                                 fullWidth
                                 id="lastName1"
                                 label="Last name"
-                                name="last_name"
+                                name="lastName"
                                 autoComplete="lastName"
                                 onChange={handleChange}
                             />

@@ -8,37 +8,22 @@ import appLogo from '../images/logov2.png';
 import { useEffect } from 'react';
 
 export default function Header() {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleLogout = () => {
-        //   axiosInstance.post('logout/blacklist/', {
-        //     refresh_token: localStorage.getItem('refresh_token'),
-        //   }).catch((function (error) {
-        //     console.log(error)
-        //   }));
-        //   localStorage.removeItem('access_token');
-        //   localStorage.removeItem('refresh_token');
-        //   axiosInstance.defaults.headers['Authorization'] = null;
-        //   window.location.href='/';
+            localStorage.removeItem('userId');
+            localStorage.removeItem('companyId');
+            window.location.href='/login';
     };
 
     useEffect(() => {
-        let mounted = true
-        if (mounted) {
-            //   axiosInstance.get('authorization/', {})
-            //                .then((res) => {
-            //                 setIsLoggedIn(res.data.is_logged_in)
-            //                 setIsStaff(res.data.is_staff)
-            //                 setIsProfesor(res.data.is_profesor)
-            //                })
-            //                .catch(function () {
-            //                 setIsLoggedIn(false)
-            //                 setIsStaff(false)
-            //                 setIsProfesor(false)
-            //                })  
-
+        if (localStorage.getItem('userId')) {
+            setIsLoggedIn(true)
         }
-    }, [setIsLoggedIn])
+        else{
+            setIsLoggedIn(false)
+        }
+    }, [])
 
     return (
         <AppBar position="static" style={{ background: "#00ADB5" }}>

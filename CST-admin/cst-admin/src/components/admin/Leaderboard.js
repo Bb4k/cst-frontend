@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import {useState, useEffect} from 'react';
-
+import axiosInstance from '../axios';
 
 
 function Leaderboard() {
@@ -9,18 +9,15 @@ function Leaderboard() {
     const [leaderboardData, setLeaderboardData] = useState([])
 
     useEffect(() => {
-
-        let mounted = true
-        if (mounted) {
-            const data = [
-                { rank: 1, name: 'John', points: 100 },
-                { rank: 2, name: 'Jane', points: 90 },
-                { rank: 3, name: 'Mike', points: 80 },
-                { rank: 4, name: 'Sarah', points: 70 },
-              ];
-            setLeaderboardData(data)
-        }
-      }, [])
+      axiosInstance
+      .get(`get-leaderboard/`+localStorage.getItem('companyId')+'/')
+      .then((res) => {
+                  setLeaderboardData(res.data)
+      })
+      .catch((function () {
+              alert('Error trying to get the leaderboard')
+      }));
+    }, [])
 
   return (
     <TableContainer component={Paper}>
@@ -35,7 +32,7 @@ function Leaderboard() {
         <TableBody>
           {leaderboardData.map((row) => (
             <TableRow key={row.rank} align="center">
-            <TableCell align="center">{row.rank}</TableCell>
+            <TableCell align="center">{leaderboardData.indexOf(row)+1}</TableCell>
             <TableCell align="center">{row.name}</TableCell>
             <TableCell align="center">{row.points}</TableCell>
             </TableRow>
