@@ -20,7 +20,6 @@ function RootNavigation() {
 
   const renderLoggedInUser = () => (
     <>
-      {/* <Header navigate={navigate} /> */}
       <DashboardStackScreen navigation={navigationRef} />
       <Footer navigate={navigate} />
     </>

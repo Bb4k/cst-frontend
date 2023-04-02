@@ -5,7 +5,7 @@ import { AppContext } from '../../context/app.context';
 import { AppCategory } from '../../components';
 
 export default function Home({ navigation }) {
-    const { themeColors, setProfile } = useContext(AppContext);
+    const { themeColors, handleSignout } = useContext(AppContext);
 
     const date = new Date();
     const hour = date.getHours().toString().padStart(2, '0');
@@ -154,7 +154,7 @@ export default function Home({ navigation }) {
                     }}>
                         {currentTime}
                     </Text>
-                    <TouchableHighlight onPress={() => { setProfile(null) }}>
+                    <TouchableHighlight onPress={() => { handleSignout() }}>
                         <Text style={{
                             fontFamily: 'Montserrat-Bold',
                             fontSize: 12,
