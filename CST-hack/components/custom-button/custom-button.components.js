@@ -34,7 +34,7 @@ export default function CustomButton({ navigation, text, onPress }) {
     return (
         <TouchableOpacity
             style={styles.defaultButtonStyle}
-            // onPress={onPress}
+            onPress={onPress}
         >
             <Text style={[styles.buttonTextStyle]}>
                 {text}
